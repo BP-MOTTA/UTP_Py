@@ -9,8 +9,3 @@ print(CodNuevo["nombre"])
 print(CodNuevo["Edad"])
 CodNuevo["nombre"]="Juaneco"
 print(CodNuevo["nombre"])
-Cod001={"nombre":"Ricardo","Edad":19,"Carrera":"Programador","Telefono":998776554}
-Cod002={"nombre":"Marcelo","Edad":19,"Carrera":"Programador","Telefono":998776554}
-Central={"Ricardo":Cod001,"Marcelo":Cod002}
-Empresa=(Central["Marcelo"])
-print(Empresa)
