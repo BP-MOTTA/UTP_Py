@@ -15,6 +15,10 @@ for i in Vingreso:
 print(Vmayor)
 print(Vmenor)
 
+Vmayor.sort()
+print(Vmayor)
+
+
 suma=0
 for i in range(1,10):
     suma=suma+1/(i*(i+1))
