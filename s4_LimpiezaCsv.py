@@ -4,6 +4,8 @@
 # - value como float con punto y 3 decimales
 # - separador de salida: coma
 # - filas inválidas: se saltan
+
+#para lectura de varios archivos se usa el For y tambien el comando *.csv
 import csv
 from datetime import datetime
 from pathlib import Path #importo el comando path (busca el lugar del codigo)
