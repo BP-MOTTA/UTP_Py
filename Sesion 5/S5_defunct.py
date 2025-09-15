@@ -22,7 +22,7 @@ def conversor(Volt):
 
 def clasificar_alertas(temp_c,umbral=0):
     """Devuelve 'ALERTA' si temp_c > umbral, si no 'OK'"""
-    return "ALERTA" if temp_c > umbral else "OK"
+    return "ALERTA" if temp_c > umbral else "OK" #if corto
 
 def main(): #el codigo principal
     Voltajes=aleatorio(30)
