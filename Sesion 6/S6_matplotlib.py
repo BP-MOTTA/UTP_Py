@@ -14,14 +14,17 @@ def aleatorio(n=20):
         Value.append(rd.randint(1,30)) #append añade a la lista\
     return(Value) #lo que devuelve la funcion
 
-ejex=[i for i in range(30)] #crear numeros del 0 al 29
-ejey=aleatorio(30)
-ejey2=aleatorio(30)
-plt.title("Estudio de tiempo de sueño de adultos")                          #TITULOS
-plt.xlabel("dias de la semana")                                             #TITULO DE EJE X
-plt.ylabel("horas al dia")                                                  #TITULO DE EJE Y
-plt.plot(ejex,ejey,'r-+',label="datos de tiempo de sueño de adultos")       # datos de ploteo (X,Y,formato y label)
-plt.plot(ejex,ejey2,'bo',label="datos de tiempo de juego de adultos")      
-plt.legend()                                                                #"leyenda"
-plt.show()                                                                  # grafica la imagen
-
+ejex=[i for i in range (30)]
+ejey=np.sin(aleatorio(30))
+ejey2=np.cos(aleatorio(30))
+ejey3=np.array(ejey)-np.array(ejey2)
+figtitle="grafico comparativo de valores aleatorios"
+plt.title(figtitle.upper(),fontdict={'fontweight': 'bold'})
+plt.xlabel("numero de datos")
+plt.ylabel("valores aleatorios")
+plt.plot(ejex,ejey,color="#b058a4d6",marker='o', linestyle=':',linewidth=1, markersize=5,label="aleatorio 1") #(ejex, ejey, caracteristicas)
+plt.plot(ejex,ejey2,'b--^',linewidth=1, markersize=5,label="aleatorio 2") #(ejex, ejey, caracteristicas)
+plt.plot(ejex,ejey3,'g',linewidth=2, markersize=5,label="aleatorio 2") #(ejex, ejey, caracteristicas)
+plt.legend()
+plt.grid()
+plt.show()

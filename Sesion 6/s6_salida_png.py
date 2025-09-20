@@ -14,15 +14,18 @@ def aleatorio(n=20):
         Value.append(rd.randint(1,30)) #append añade a la lista\
     return(Value) #lo que devuelve la funcion
 
-ejex=[i for i in range(30)] #crear numeros del 0 al 29
-ejey=aleatorio(30)
-ejey2=aleatorio(30)
+ejex=[i for i in range (30)]
+ejey=np.sin(aleatorio(30))
+ejey2=np.cos(aleatorio(30))
+ejey3=np.array(ejey)-np.array(ejey2)
 
 fig,axs = plt.subplots(2,2)
-fig.suptitle("datos por separado")
-axs[0,0].plot(ejex,ejey,'go',label="datos de tiempo de sueño")
-axs[0,0].set_title("lugar [0,0]")
-axs[0,0].set_xlabel("tiempo")
-axs[1,1].plot(ejex,ejey2,'rx',label="datos de tiempo de juego")
-axs[1,1].set_title("lugar [1,1]")
-plt.savefig('salidapng')
+figtitle="grafico comparativo de valores aleatorios"
+fig.suptitle(figtitle.upper(),fontweight='bold')
+axs[0,0].plot(ejex,ejey,'go--')
+axs[0,0].set_title("datos aleatorios 1")
+axs[0,1].plot(ejex,ejey2,color="#b058a4d6",marker='o', linestyle=':')
+axs[1,1].set_xlabel("cantidad")
+axs[1,1].grid()
+plt.savefig('salidapng',bbox_inches ="tight", 
+			pad_inches = 0.8,dpi=320,edgecolor="b",facecolor ="#dcc8d9d4")
