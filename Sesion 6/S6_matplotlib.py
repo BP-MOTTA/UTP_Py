@@ -22,7 +22,7 @@ figtitle="grafico comparativo de valores aleatorios"
 plt.title(figtitle.upper(),fontdict={'fontweight': 'bold'})
 plt.xlabel("numero de datos")
 plt.ylabel("valores aleatorios")
-plt.plot(ejex,ejey,color="#b058a4d6",marker='o', linestyle=':',linewidth=1, markersize=5,label="aleatorio 1") #(ejex, ejey, caracteristicas)
+plt.plot(ejex,ejey,color="#10144bd3",marker='x', linestyle='--',linewidth=3, markersize=6,label="aleatorio 1") #(ejex, ejey, caracteristicas)
 plt.plot(ejex,ejey2,'b--^',linewidth=1, markersize=5,label="aleatorio 2") #(ejex, ejey, caracteristicas)
 plt.plot(ejex,ejey3,'g',linewidth=2, markersize=5,label="aleatorio 2") #(ejex, ejey, caracteristicas)
 plt.legend()
