@@ -11,7 +11,7 @@ CSV_PATH = DATA_DIR / FILENAME
 if not CSV_PATH.exists():
     raise FileNotFoundError(f"No existe: {CSV_PATH}")
 #Enrutamiento de la salida de graficos
-PLOTS_DIR=ROOT/"Sesion 7"/"plots"
+PLOTS_DIR=ROOT/"Sesion 7 - Sesion 8"/"plots"
 PLOTS_DIR.mkdir(parents=True, exist_ok=True) #crear la carpeta si no existe
 Umbral_V=5.1
 
