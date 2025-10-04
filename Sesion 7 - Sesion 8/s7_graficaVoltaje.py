@@ -8,6 +8,7 @@ ROOT=Path(__file__).resolve().parents[1] #antes de la carpeta Sesion 7
 DATA_DIR= ROOT/"Sesion 4"/"datos"/"proccesing"
 FILENAME= "voltajes_250_sucio_limpio.csv"
 CSV_PATH = DATA_DIR / FILENAME
+print(CSV_PATH)
 if not CSV_PATH.exists():
     raise FileNotFoundError(f"No existe: {CSV_PATH}")
 #Enrutamiento de la salida de graficos
@@ -66,7 +67,7 @@ print(f"Leído: {CSV_PATH.name} — filas válidas: {len(Tiempo)}")
 alerta_t=[t for t, lab in zip(Tiempo,Control) if lab=="ALERTA"] #separa los tiempos donde sale una alerta
 alerts_v=[v for v, lab in zip(Voltaje,Control) if lab=="ALERTA"] #separa los voltjaes donde sale una alerta
 plt.figure(figsize=(9, 4)) #tamano de la figura
-plt.plot(Tiempo,Voltaje,color="#0094fdea", linestyle="--",label="Voltaje (V)")
+plt.plot(Tiempo,Voltaje,color="#0039acea", linestyle="-",label="Voltaje (V)")
 plt.scatter(alerta_t, alerts_v,color="#f40404d2",label=f"Alertas (> {Umbral_V} V)")
 ax = plt.gca()
 for t, v in zip(alerta_t, alerts_v):
@@ -79,18 +80,18 @@ for t, v in zip(alerta_t, alerts_v):
 plt.axhline(Umbral_V,color="#fd9800d2", linestyle=":", label=f"Umbral {Umbral_V} V")
 ax = plt.gca()
 ax.xaxis.set_major_formatter(mdates.DateFormatter("%H:%M:%S"))
-plt.title(f"Voltaje vs Tiempo — {CSV_PATH.name}")
+plt.title(f"Voltaje vs Tiempo — {CSV_PATH.stem}".upper(),fontdict={'fontweight': 'bold'})
 plt.xlabel("Tiempo"); plt.ylabel("V")
 plt.grid(True); plt.legend()
 plt.tight_layout()
 out1 = PLOTS_DIR / f"volt_line_{CSV_PATH.stem}.png"
-plt.savefig(out1, dpi=150); plt.show()
+plt.savefig(out1, dpi=400); plt.show()
 print("Guardado:", out1)
 
 #//////HISTOGRAMA///////
 plt.figure(figsize=(6, 4))
-plt.hist(Voltaje, bins=20)
-plt.title(f"Histograma de Voltaje — {CSV_PATH.name}")
+plt.hist(Voltaje, bins=30,orientation="vertical")
+plt.title(f"Histograma de Voltaje — {CSV_PATH.name}".upper(),fontdict={'fontweight': 'bold'})
 plt.xlabel("V"); plt.ylabel("Frecuencia")
 plt.grid(True)
 plt.tight_layout()
@@ -101,8 +102,8 @@ print("Guardado:", out2)
 
 # ====== Gráfico 3: Boxplot de Voltaje ======
 plt.figure(figsize=(4, 5))
-plt.boxplot(Voltaje, vert=True, showmeans=True)
-plt.title(f"Boxplot de Voltaje — {CSV_PATH.name}")
+plt.boxplot(Voltaje, vert=True, showmeans=True, meanline=True)
+plt.title(f"Boxplot de Voltaje — {CSV_PATH.name}".upper(),fontdict={'fontweight': 'bold'})
 plt.ylabel("V")
 plt.grid(True)
 plt.tight_layout()
