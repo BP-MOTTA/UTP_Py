@@ -8,6 +8,7 @@ ROOT=Path(__file__).resolve().parents[0]
 DATA_DIR= ROOT/"Proccesing"
 #comando glob
 archivos=DATA_DIR.glob("*.csv")
+
 PLOTS_DIR=ROOT/"plots"
 PLOTS_DIR.mkdir(parents=True, exist_ok=True) #crear la carpeta si no existe
 Umbral_V=5.1
@@ -32,13 +33,9 @@ def parse_ts(s: str):
             return None
     return None
 
-for p in archivos: #puedo meter mi codigo y hara un bucle con todos los archivos .csv
-    prefijo, estado, n = p.stem.split("_")  # 'datos','sucios','250'
-    nuevo2 = f"{prefijo}_sensorn_{n}{p.suffix}"
-    FILENAME=p.name
+for p in archivos:
+    FILENAME= p.name
     CSV_PATH = DATA_DIR / FILENAME
-    
-    #Crear la listas vacias de Tiempo, Voltaje y Control
     Tiempo, Voltaje, Control=[],[],[]
     delim=detectar_delimitador(CSV_PATH)
     with CSV_PATH.open("r", encoding="utf-8", newline="") as f:
@@ -57,27 +54,22 @@ for p in archivos: #puedo meter mi codigo y hara un bucle con todos los archivos
             Tiempo.append(t)
             Voltaje.append(v)
             Control.append(lab)
+            
     if not Tiempo:
         raise RuntimeError("No se pudieron leer datos válidos (timestamp/voltaje).")
     print(f"Leído: {CSV_PATH.name} — filas válidas: {len(Tiempo)}")
-        
+
     #Hacer los graficos.
-    #////grafico del tipo lineal///// 
+    #////grafico del tipo lineal/////
     alerta_t=[t for t, lab in zip(Tiempo,Control) if lab=="ALERTA"] #separa los tiempos donde sale una alerta
     alerts_v=[v for v, lab in zip(Voltaje,Control) if lab=="ALERTA"] #separa los voltjaes donde sale una alerta
     plt.figure(figsize=(9, 4)) #tamano de la figura
     plt.plot(Tiempo,Voltaje,color="#0039acea", linestyle="-",label="Voltaje (V)")
     plt.scatter(alerta_t, alerts_v,color="#f40404d2",label=f"Alertas (> {Umbral_V} V)")
     ax = plt.gca()
-    #for t, v in zip(alerta_t, alerts_v):
-    #    ax.annotate(f"{v:.2f}V",               # Permite ver los puntos donde se pasa del umbral
-    #                xy=(t, v),                 # punto a anotar
-    #                xytext=(0, 8),             # desplazamiento del texto (px)
-    #                textcoords="offset points",
-    #                ha="center", va="bottom",
-    #                fontsize=8)
-    #plt.axhline(Umbral_V,color="#fd9800d2", linestyle=":", label=f"Umbral {Umbral_V} V")
-    #ax = plt.gca()
+    
+    plt.axhline(Umbral_V,color="#fd9800d2", linestyle=":", label=f"Umbral {Umbral_V} V")
+    ax = plt.gca()
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%H:%M:%S"))
     plt.title(f"Voltaje vs Tiempo — {CSV_PATH.stem}".upper(),fontdict={'fontweight': 'bold'})
     plt.xlabel("Tiempo"); plt.ylabel("V")
@@ -86,7 +78,7 @@ for p in archivos: #puedo meter mi codigo y hara un bucle con todos los archivos
     out1 = PLOTS_DIR / f"volt_line_{CSV_PATH.stem}.png"
     plt.savefig(out1, dpi=400)
     print("Guardado:", out1)
-    
+
     #//////HISTOGRAMA///////
     plt.figure(figsize=(6, 4))
     plt.hist(Voltaje, bins=30,orientation="vertical")
@@ -97,3 +89,4 @@ for p in archivos: #puedo meter mi codigo y hara un bucle con todos los archivos
     out2 = PLOTS_DIR / f"volt_hist_{CSV_PATH.stem}.png"
     plt.savefig(out2, dpi=150)
     print("Guardado:", out2)
+
