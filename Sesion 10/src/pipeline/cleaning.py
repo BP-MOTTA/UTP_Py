@@ -62,7 +62,9 @@ def clean_file(in_path: Path, out_path: Path, ts_col="timestamp", v_col_candidat
             v = parse_v(v_raw)
             if v is None:
                 bad_val += 1; continue
+            #ecuacion lineal de calibracion -
             hum=2+(100-2)*(v-0.4)/(7.0-0.4)
+            
             writer.writerow({
                 "timestamp": t.strftime("%Y-%m-%dT%H:%M:%S"),
                 "voltage_V": f"{v:.3f}",

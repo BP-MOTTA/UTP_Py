@@ -1,6 +1,9 @@
 from pathlib import Path
 import csv
-from src.pipeline import (Root, ensure_dirs, list_raw_csvs,make_clean_name,safe_stem, clean_file, kpis_volt, plot_voltage_line, plot_voltage_hist, plot_boxplot_by_sensor)
+from src.pipeline import (Root, ensure_dirs, 
+                          list_raw_csvs,make_clean_name,safe_stem, 
+                          clean_file, kpis_volt, plot_voltage_line, 
+                          plot_voltage_hist, plot_boxplot_by_sensor)
 # === Parámetros ===
 ROOT = Root(__file__)
 RAW_DIR = ROOT / "DATA" / "RAW"
@@ -44,8 +47,8 @@ def main():
         stem_safe = safe_stem(out_path)
         plot_voltage_line(
             ts, humedad, UMBRAL_V,
-            title=f"Voltaje vs Tiempo — {out_path.name}",
-            out_path=PLOTS_DIR / f"{stem_safe}__volt_line__{UMBRAL_V:.1f}V.png"
+            title=f"Humedad vs Tiempo — {out_path.name}",
+            out_path=PLOTS_DIR / f"{stem_safe}__volt_line__{UMBRAL_V:.1f}%.png"
         )
         plot_voltage_hist(
             humedad,
@@ -59,7 +62,7 @@ def main():
         name = out_path.stem
         sensor_id = name.replace("voltaje_sensor_", "")
         sensor_key = f"S-{sensor_id}" if sensor_id != name else name
-        sensor_to_volts.setdefault(sensor_key, []).extend(volts)
+        sensor_to_volts.setdefault(sensor_key, []).extend(humedad)
 
     # 5) Guardar reporte KPIs
     rep_csv = REPORTS_DIR / "kpis_por_archivo.csv"
